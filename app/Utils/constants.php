@@ -86,3 +86,6 @@ const DASHBOARD_DATA_LIMIT = 6;
 const DASHBOARD_TOP_SELL_DATA_LIMIT = 5;
 const TABLE_VIEW = 'table_view';
 const FILTER_PRODUCT_DATA_LIMIT = 2;
+const ROLE_PRINCIPAL = 'principal';
+const ROLE_TEACHER = 'teacher';
+const ROLE_STUDENT = 'student';
