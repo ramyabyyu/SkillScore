@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Enums\RoleEnum;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('manage_teacher', function (User $user) {
+            return $user->role()->where('name', RoleEnum::PRINCIPAL)->exists();
+        });
     }
 }
