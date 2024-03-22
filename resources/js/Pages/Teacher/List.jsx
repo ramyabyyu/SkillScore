@@ -1,11 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import AddNewTeacherForm from "./Partials/AddNewTeacherForm";
+import CardSection from "@/Components/CardSection";
+import TeacherListTable from "./Partials/TeacherListTable";
 
 const List = ({ auth }) => {
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            auth={auth}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     List Teacher
@@ -21,6 +23,10 @@ const List = ({ auth }) => {
                     </div>
                 </div>
             </div>
+
+            <CardSection>
+                <TeacherListTable className="max-w-xl" />
+            </CardSection>
         </AuthenticatedLayout>
     );
 };

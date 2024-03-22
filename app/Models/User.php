@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -62,5 +64,15 @@ class User extends Authenticatable
     public function subjects() : HasMany
     {
         return $this->hasMany(Subject::class);
+    }
+
+    public function getPermissions() : ?Collection
+    {
+        $userRoleId = $this->role->id;
+
+        return DB::table('role_permissions')
+            ->join('permissions', 'role_permissions.permission_id', '=', 'permissions.id')
+            ->where('role_permissions.role_id', $userRoleId)
+            ->pluck('permissions.name');
     }
 }

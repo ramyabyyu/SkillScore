@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Sidebar } from "flowbite-react";
 import {
     HiArrowSmRight,
@@ -10,12 +10,22 @@ import {
     HiTable,
     HiUser,
 } from "react-icons/hi";
+import { menus } from "@/Utils/menuConstants";
+import { Link } from "@inertiajs/react";
+import AppSidebarList from "./Partials/AppSidebarList";
+import { checkAuthorization } from "@/Utils/checkAuthorization";
 
-const AppSidebar = () => {
+const AppSidebar = ({ auth }) => {
+    useEffect(() => {
+        console.log(menus);
+    }, []);
     return (
-        <Sidebar aria-label="SkillScore Sidebar" className="fixed top-0 left-0">
+        <Sidebar
+            aria-label="SkillScore Sidebar"
+            className="fixed top-0 left-0 z-40 w-72 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        >
             <Sidebar.Logo
-                href="#"
+                href={route("dashboard")}
                 img="https://flowbite.com/docs/images/logo.svg"
                 imgAlt="Flowbite logo"
             >
@@ -24,32 +34,16 @@ const AppSidebar = () => {
             </Sidebar.Logo>
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
-                    <Sidebar.Item href="#" icon={HiChartPie}>
-                        Dashboard
-                    </Sidebar.Item>
-                    <Sidebar.Collapse
-                        icon={HiChartPie}
-                        label={<span className="mr-14">E-commerce</span>}
-                    >
-                        <Sidebar.Item href="#">
-                            <span className="ml-7">Products</span>
-                        </Sidebar.Item>
-                    </Sidebar.Collapse>
-                    <Sidebar.Item href="#" icon={HiInbox}>
-                        Inbox
-                    </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiUser}>
-                        Users
-                    </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiShoppingBag}>
-                        Products
-                    </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiArrowSmRight}>
-                        Sign In
-                    </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiTable}>
-                        Sign Up
-                    </Sidebar.Item>
+                    {menus.map(
+                        (menu, index) =>
+                            checkAuthorization(auth, menu) && (
+                                <AppSidebarList
+                                    key={index}
+                                    active={route().current(menu.routeName)}
+                                    menu={menu}
+                                />
+                            )
+                    )}
                 </Sidebar.ItemGroup>
             </Sidebar.Items>
         </Sidebar>
