@@ -1,5 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import AddNewTeacherForm from "./Partials/AddNewTeacherForm";
 
 const List = ({ auth }) => {
     return (
@@ -16,9 +17,7 @@ const List = ({ auth }) => {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            Hello Worlds
-                        </h3>
+                        <AddNewTeacherForm className="max-w-xl" />
                     </div>
                 </div>
             </div>

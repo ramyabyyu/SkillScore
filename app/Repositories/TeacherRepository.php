@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 use App\Contracts\Repositories\TeacherRepositoryInterface;
+use App\Enums\RoleEnum;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,7 +19,7 @@ class TeacherRepository implements TeacherRepositoryInterface
 
     public function add(array $data): object|string
     {
-        $teacherRole = $this->role->where('name', ROLE_TEACHER)->get('id');
+        $teacherRole = $this->role->where('name', RoleEnum::TEACHER)->first();
         $data['role_id'] = $teacherRole->id;
         return $this->user->create($data);
     }

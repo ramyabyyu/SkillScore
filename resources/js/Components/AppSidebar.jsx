@@ -20,7 +20,7 @@ const AppSidebar = () => {
                 imgAlt="Flowbite logo"
             >
                 <span className="ml-2">Skill</span>
-                <span className="text-purple-500">Score</span>
+                <span className="text-indigo-500">Score</span>
             </Sidebar.Logo>
             <Sidebar.Items>
                 <Sidebar.ItemGroup>

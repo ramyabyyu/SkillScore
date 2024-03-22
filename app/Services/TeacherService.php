@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Enums\RoleEnum;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,7 +13,7 @@ class TeacherService
     {}
     public function getAddData(object $request) : array
     {
-        $teacherRole = $this->role->where('name', ROLE_TEACHER)->get('id');
+        $teacherRole = $this->role->where('name', RoleEnum::TEACHER)->first();
         return [
             'name' => $request['name'],
             'email' => $request['email'],
