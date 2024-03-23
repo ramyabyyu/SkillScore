@@ -36,6 +36,13 @@ export const menus = [
                 href: route("teacher.list"),
                 routeName: "teacher.list",
             },
+            {
+                title: "Add Teacher",
+                checkBy: "permission",
+                permission: "manage_teacher",
+                href: route("teacher.add"),
+                routeName: "teacher.add",
+            },
         ],
     },
 ];

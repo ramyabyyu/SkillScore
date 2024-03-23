@@ -21,16 +21,22 @@ class TeacherController extends Controller
 
     public function getListView(Request $request) : Response
     {
-        $teachers = $this->teacherRepo->getListWhere(orderBy:['id' => 'desc'], searchValue:$request['search'], dataLimit:WebConfig::getSettingValue('pagination_limit'));
+        $teachers = $this->teacherRepo->getListWhere(orderBy:['id' => 'desc'], searchValue:$request['name'], dataLimit:WebConfig::getSettingValue('pagination_limit'), filters:['name' => $request['name']]);
         return Inertia::render('Teacher/List', [
-            'teachers' => $teachers
+            'teachers' => $teachers,
+            'searchName' => $request->has('name') ? $request['name'] : ''
         ]);
+    }
+
+    public function getAddView() : Response
+    {
+        return Inertia::render('Teacher/Add');
     }
 
     public function store(TeacherAddRequest $request, TeacherService $service) : RedirectResponse
     {
         $data = $service->getAddData($request);
         $this->teacherRepo->add($data);
-        return redirect()->back(201);
+        return redirect()->route('teacher.list');
     }
 }

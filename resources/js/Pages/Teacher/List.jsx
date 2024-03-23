@@ -6,8 +6,9 @@ import TeacherListTable from "./Partials/TeacherListTable";
 import { usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 import FilterListTeacher from "./Partials/FilterListTeacher";
+import Table from "@/Components/Table";
 
-const List = ({ auth }) => {
+const List = ({ auth, searchName }) => {
     const { teachers } = usePage().props;
 
     useEffect(() => {
@@ -29,14 +30,18 @@ const List = ({ auth }) => {
                 headerTitle={"Filter Teacher"}
                 headerSubTitle={"Search teacher by their names."}
                 collapsible
-                defaultCollapseState
                 className="pt-12"
             >
-                <FilterListTeacher />
+                <FilterListTeacher searchName={searchName} />
             </CardSection>
 
             <CardSection className="py-2" withHeader={false}>
-                <TeacherListTable teachers={teachers} />
+                {/* <TeacherListTable teachers={teachers} /> */}
+                <Table
+                    tableData={teachers}
+                    tableHeaders={["Name", "Email", "Subject"]}
+                    tableDataFields={["name", "email", "none"]}
+                />
             </CardSection>
         </AuthenticatedLayout>
     );

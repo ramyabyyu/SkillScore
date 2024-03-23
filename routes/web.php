@@ -29,6 +29,10 @@ Route::middleware('auth')->group(function () {
         ->can('manage_teacher')
         ->name('list');
 
+        Route::get('/add', [TeacherController::class, 'getAddView'])
+        ->can('manage_teacher')
+        ->name('add');
+
         Route::post('/store', [TeacherController::class, 'store'])
         ->can('manage_teacher')
         ->name('store');

@@ -1,6 +1,13 @@
 import React from "react";
 
-const Button = ({ variant, type = "button", disabled = false, children }) => {
+const Button = ({
+    variant,
+    type = "button",
+    disabled = false,
+    children,
+    onClick,
+    ...props
+}) => {
     let classes = "";
     switch (variant) {
         case "alternative":
@@ -185,7 +192,13 @@ const Button = ({ variant, type = "button", disabled = false, children }) => {
             break;
     }
     return (
-        <button type={type} disabled={disabled} className={classes}>
+        <button
+            type={type}
+            disabled={disabled}
+            className={classes}
+            onClick={onClick}
+            {...props}
+        >
             {children}
         </button>
     );

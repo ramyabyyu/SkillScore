@@ -5,15 +5,23 @@ import { Link, useForm, usePage } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Transition } from "@headlessui/react";
+import Button from "@/Components/Button";
 
-const AddNewTeacherForm = ({ className = "" }) => {
-    const { data, setData, post, errors, processing, recentlySuccessful } =
-        useForm({
-            name: "",
-            email: "",
-            password: "",
-            password_confirmation: "",
-        });
+const AddNewTeacherForm = () => {
+    const {
+        data,
+        setData,
+        post,
+        errors,
+        processing,
+        recentlySuccessful,
+        reset,
+    } = useForm({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+    });
 
     const submit = (e) => {
         e.preventDefault();
@@ -22,19 +30,9 @@ const AddNewTeacherForm = ({ className = "" }) => {
     };
 
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    Teacher Information
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Add new Teacher's account.
-                </p>
-            </header>
-
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
+        <form onSubmit={submit} className="mt-6 space-y-6 w-4/5">
+            <div className="grid grid-cols-2 gap-2">
+                <div className="my-3">
                     <InputLabel htmlFor="name" value="Name" />
 
                     <TextInput
@@ -51,23 +49,7 @@ const AddNewTeacherForm = ({ className = "" }) => {
 
                     <InputError className="mt-2" message={errors.name} />
                 </div>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        name="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData("email", e.target.value)}
-                        required
-                        autoComplete="email"
-                    />
-
-                    <InputError className="mt-2" message={errors.email} />
-                </div>
-                <div>
+                <div className="my-3">
                     <InputLabel htmlFor="password" value="Password" />
 
                     <TextInput
@@ -83,7 +65,24 @@ const AddNewTeacherForm = ({ className = "" }) => {
 
                     <InputError className="mt-2" message={errors.password} />
                 </div>
-                <div>
+                <div className="my-3">
+                    <InputLabel htmlFor="email" value="Email" />
+
+                    <TextInput
+                        id="email"
+                        name="email"
+                        type="email"
+                        className="mt-1 block w-full"
+                        value={data.email}
+                        onChange={(e) => setData("email", e.target.value)}
+                        required
+                        autoComplete="email"
+                    />
+
+                    <InputError className="mt-2" message={errors.email} />
+                </div>
+
+                <div className="my-3" s>
                     <InputLabel
                         htmlFor="password_confirmation"
                         value="Password Confirmation"
@@ -107,10 +106,23 @@ const AddNewTeacherForm = ({ className = "" }) => {
                         message={errors.password_confirmation}
                     />
                 </div>
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing} type="submit">
+
+                <div className="flex items-center gap-1 mt-1">
+                    <Button
+                        disabled={processing}
+                        type="submit"
+                        variant="purple-colored-shadows"
+                    >
                         Save
-                    </PrimaryButton>
+                    </Button>
+                    <Button
+                        disabled={processing}
+                        type="button"
+                        variant="red-colored-shadows"
+                        onClick={() => reset()}
+                    >
+                        Reset
+                    </Button>
 
                     <Transition
                         show={recentlySuccessful}
@@ -124,8 +136,8 @@ const AddNewTeacherForm = ({ className = "" }) => {
                         </p>
                     </Transition>
                 </div>
-            </form>
-        </section>
+            </div>
+        </form>
     );
 };
 

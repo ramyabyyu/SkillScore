@@ -2,10 +2,20 @@ import Button from "@/Components/Button";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import React from "react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 
-const FilterListTeacher = () => {
+const FilterListTeacher = ({ searchName }) => {
+    const { data, setData, get, errors } = useForm({
+        name: searchName,
+    });
+
+    const search = (e) => {
+        e.preventDefaullt();
+        get(route("teacher.list"));
+    };
+
     return (
-        <form action="" className="mt-6 space-y-6 w-4/5">
+        <form action="" onSubmit={search} className="mt-6 space-y-6 w-4/5">
             <div className="grid grid-cols-2 gap-6">
                 <div>
                     <InputLabel htmlFor="name" value={"Name"} />
@@ -13,6 +23,8 @@ const FilterListTeacher = () => {
                         id="name"
                         name="name"
                         type="text"
+                        value={data.name}
+                        onChange={(e) => setData("name", e.target.value)}
                         className="mt-1 block w-full"
                         placeholder="Search teacher by name..."
                     />
@@ -28,7 +40,9 @@ const FilterListTeacher = () => {
                     />
                 </div>
                 <div>
-                    <Button variant="pink-colored-shadows">Search</Button>
+                    <Button variant="purple-colored-shadows" type="submit">
+                        Search
+                    </Button>
                 </div>
             </div>
         </form>
