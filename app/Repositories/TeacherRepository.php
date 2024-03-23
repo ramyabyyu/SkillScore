@@ -36,7 +36,10 @@ class TeacherRepository implements TeacherRepositoryInterface
 
     public function getListWhere(array $orderBy = [], string $searchValue = null, array $filters = [], array $relations = [], int|string $dataLimit = DEFAULT_DATA_LIMIT, int $offset = null): Collection|LengthAwarePaginator
     {
-        $query = $this->user->with($relations)
+        $query = $this->user->with('role')->whereHas('role', function ($query) {
+            $query->where(['name' => RoleEnum::TEACHER]);
+        })
+            ->with($relations)
             ->when($searchValue, function($query) use ($searchValue) {
                 return $query->where('name', 'like', "%$searchValue%");
             })

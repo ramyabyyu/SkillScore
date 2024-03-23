@@ -6,75 +6,50 @@ import {
     TableHeadCell,
     TableRow,
 } from "flowbite-react";
-import React from "react";
+import { Link } from "@inertiajs/react";
+import Pagination from "@/Components/Pagination";
 
-const TeacherListTable = ({ className = "" }) => {
+const TeacherListTable = ({ teachers }) => {
+    const { data, links } = teachers;
     return (
-        <section className={className}>
-            <div className="overflow-x-auto">
-                <Table hoverable>
-                    <TableHead>
-                        <TableHeadCell>Product name</TableHeadCell>
-                        <TableHeadCell>Color</TableHeadCell>
-                        <TableHeadCell>Category</TableHeadCell>
-                        <TableHeadCell>Price</TableHeadCell>
-                        <TableHeadCell>
-                            <span className="sr-only">Edit</span>
-                        </TableHeadCell>
-                    </TableHead>
-                    <TableBody className="divide-y">
-                        <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                            <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                {'Apple MacBook Pro 17"'}
-                            </TableCell>
-                            <TableCell>Sliver</TableCell>
-                            <TableCell>Laptop</TableCell>
-                            <TableCell>$2999</TableCell>
-                            <TableCell>
-                                <a
-                                    href="#"
-                                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                                >
-                                    Edit
-                                </a>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                            <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                Microsoft Surface Pro
-                            </TableCell>
-                            <TableCell>White</TableCell>
-                            <TableCell>Laptop PC</TableCell>
-                            <TableCell>$1999</TableCell>
-                            <TableCell>
-                                <a
-                                    href="#"
-                                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                                >
-                                    Edit
-                                </a>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                            <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                Magic Mouse 2
-                            </TableCell>
-                            <TableCell>Black</TableCell>
-                            <TableCell>Accessories</TableCell>
-                            <TableCell>$99</TableCell>
-                            <TableCell>
-                                <a
-                                    href="#"
-                                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                                >
-                                    Edit
-                                </a>
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
+        <div class="relative overflow-x-auto w-full">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Email
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Subject
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((t, idx) => (
+                        <tr
+                            key={idx}
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        >
+                            <th
+                                scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                                {t.name}
+                            </th>
+                            <td class="px-6 py-4">{t.email}</td>
+                            <td class="px-6 py-4">None</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            <div className="mt-5 flex justify-end">
+                <Pagination links={links} />
             </div>
-        </section>
+        </div>
     );
 };
 

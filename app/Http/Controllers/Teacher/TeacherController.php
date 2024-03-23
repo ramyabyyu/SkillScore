@@ -6,6 +6,7 @@ use App\Contracts\Repositories\TeacherRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\TeacherAddRequest;
 use App\Services\TeacherService;
+use App\Utils\WebConfig;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,9 +19,12 @@ class TeacherController extends Controller
     )
     {}
 
-    public function getListView() : Response
+    public function getListView(Request $request) : Response
     {
-        return Inertia::render('Teacher/List');
+        $teachers = $this->teacherRepo->getListWhere(orderBy:['id' => 'desc'], searchValue:$request['search'], dataLimit:WebConfig::getSettingValue('pagination_limit'));
+        return Inertia::render('Teacher/List', [
+            'teachers' => $teachers
+        ]);
     }
 
     public function store(TeacherAddRequest $request, TeacherService $service) : RedirectResponse

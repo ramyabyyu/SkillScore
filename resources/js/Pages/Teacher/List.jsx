@@ -3,8 +3,17 @@ import { Head } from "@inertiajs/react";
 import AddNewTeacherForm from "./Partials/AddNewTeacherForm";
 import CardSection from "@/Components/CardSection";
 import TeacherListTable from "./Partials/TeacherListTable";
+import { usePage } from "@inertiajs/react";
+import { useEffect } from "react";
+import FilterListTeacher from "./Partials/FilterListTeacher";
 
 const List = ({ auth }) => {
+    const { teachers } = usePage().props;
+
+    useEffect(() => {
+        console.log(teachers);
+    }, []);
+
     return (
         <AuthenticatedLayout
             auth={auth}
@@ -16,16 +25,18 @@ const List = ({ auth }) => {
         >
             <Head title="List Teacher" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                        <AddNewTeacherForm className="max-w-xl" />
-                    </div>
-                </div>
-            </div>
+            <CardSection
+                headerTitle={"Filter Teacher"}
+                headerSubTitle={"Search teacher by their names."}
+                collapsible
+                defaultCollapseState
+                className="pt-12"
+            >
+                <FilterListTeacher />
+            </CardSection>
 
-            <CardSection>
-                <TeacherListTable className="max-w-xl" />
+            <CardSection className="py-2" withHeader={false}>
+                <TeacherListTable teachers={teachers} />
             </CardSection>
         </AuthenticatedLayout>
     );
