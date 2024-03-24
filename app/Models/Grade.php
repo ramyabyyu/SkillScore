@@ -13,8 +13,8 @@ class Grade extends Model
 
     protected $fillable = ['name', 'description'];
 
-    public function users() : HasMany
+    public function students() : HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(StudentDetail::class);
     }
 }

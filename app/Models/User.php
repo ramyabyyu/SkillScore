@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
@@ -56,11 +57,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function grade() : BelongsTo
-    {
-        return $this->belongsTo(Grade::class);
-    }
-
     public function subjects() : HasMany
     {
         return $this->hasMany(Subject::class);
@@ -74,5 +70,15 @@ class User extends Authenticatable
             ->join('permissions', 'role_permissions.permission_id', '=', 'permissions.id')
             ->where('role_permissions.role_id', $userRoleId)
             ->pluck('permissions.name');
+    }
+
+    public function teacherDetail() : HasOne
+    {
+        return $this->hasOne(TeacherDetail::class);
+    }
+
+    public function studentDetail() : HasOne
+    {
+        return $this->hasOne(StudentDetail::class);
     }
 }
