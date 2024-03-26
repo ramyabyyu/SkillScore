@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teacher_details', function (Blueprint $table) {
+        Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['1', '0', '2'])->default('1')->comment('1 = active; 0 = inactive; 2 = leave');
-            $table->unsignedBigInteger('user_id');
+            $table->enum('status', ['1', '0', '2', '3'])->default('3')->comment('1 = active; 0 = inactive; 2 = leave;3 = pending');
+            $table->unsignedBigInteger('user_id')->comment('User Account');
+            $table->string('full_name');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('address');
             $table->string('nuptk', 16)->unique()->comment('Nomor Unik Pendidik dan Tenaga Kependidikan');

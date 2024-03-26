@@ -4,8 +4,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\StudentRepositoryInterface;
 use App\Enums\RoleEnum;
 use App\Models\Role;
-use App\Models\StudentDetail;
-use App\Models\User;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -13,8 +12,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class StudentRepository implements StudentRepositoryInterface
 {
     public function __construct(
-        private readonly User           $student,
-        private readonly StudentDetail  $studentDetail,
+        private readonly Student        $student,
         private readonly Role           $role
     )
     {
@@ -23,8 +21,6 @@ class StudentRepository implements StudentRepositoryInterface
 
     public function add(array $data): object|string
     {
-        $studentRole = $this->role->where('name', RoleEnum::STUDENT)->first();
-        $data['role_id'] = $studentRole->id;
         return $this->student->create($data);
     }
 

@@ -6,21 +6,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TeacherDetail extends Model
+class Student extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'full_name',
         'status',
         'user_id',
         'address',
-        'nuptk',
+        'nisn',
         'dob',
         'pob',
-        'nik',
+        'previous_school',
         'joined_at',
-        'last_education'
+        'grade_id'
     ];
+
+    public function grade() : BelongsTo
+    {
+        return $this->belongsTo(Grade::class);
+    }
 
     public function user() : BelongsTo
     {

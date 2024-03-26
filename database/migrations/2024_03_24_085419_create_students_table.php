@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('student_details', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['1', '0', '2'])->default('1')->comment('1 = active;0 = drop out;2 = graduated');
-            $table->unsignedBigInteger('user_id');
+            $table->enum('status', ['1', '0', '2', '3'])->default('3')->comment('1 = active;0 = drop out;2 = graduated;3 = pending');
+            $table->unsignedBigInteger('user_id')->comment('User account');
+            $table->string('full_name');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('address');
-            $table->string('nisn', 16)->unique()->comment('Nomor Induk Siswa Nasional');
+            $table->string('nisn', 10)->unique()->comment('Nomor Induk Siswa Nasional');
             $table->date('dob');
             $table->string('pob');
             $table->string('previous_school')->nullable();

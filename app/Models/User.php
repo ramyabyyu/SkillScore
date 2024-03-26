@@ -26,7 +26,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'grade_id'
+        'grade_id',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -74,11 +76,11 @@ class User extends Authenticatable
 
     public function teacherDetail() : HasOne
     {
-        return $this->hasOne(TeacherDetail::class);
+        return $this->hasOne(Teacher::class);
     }
 
     public function studentDetail() : HasOne
     {
-        return $this->hasOne(StudentDetail::class);
+        return $this->hasOne(Student::class);
     }
 }
